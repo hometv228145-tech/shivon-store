@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="hi" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Admin Dashboard | Shivon Krishi Store</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            agri: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-100 dark:bg-[#0a110f] text-gray-900 dark:text-gray-100 min-h-screen font-sans flex flex-col">
+
+  <!-- ================= TOP ADMIN BAR ================= -->
+  <header class="bg-white dark:bg-[#0f1915] border-b border-gray-200 dark:border-gray-800 shadow-sm sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-agri-700 flex items-center justify-center text-white font-bold text-sm">
+            🌱
+          </div>
+          <div>
+            <span class="font-extrabold text-base text-gray-900 dark:text-white block leading-none font-hindi">शिवोन कृषि स्टोर</span>
+            <span class="text-[10px] uppercase font-bold text-agri-600 dark:text-agri-400">मास्टर एडमिन पोर्टल (Admin Hub)</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Theme Switcher -->
+        <button data-theme-toggle class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 text-gray-700 dark:text-gray-300 text-xs font-semibold flex items-center gap-1.5">
+          <span>🌓 थीम</span>
+        </button>
+
+        <!-- Storefront link -->
+        <a href="index.html" class="flex items-center gap-1 text-xs font-bold bg-agri-50 dark:bg-agri-950 text-agri-700 dark:text-agri-300 border border-agri-200 dark:border-agri-800 px-3 py-1.5 rounded-lg hover:bg-agri-100 transition">
+          <span>🛍️ दुकान पर जाएं</span>
+        </a>
+
+        <!-- Admin Badge -->
+        <div class="flex items-center gap-2 pl-3 border-l border-gray-200 dark:border-gray-800 text-xs">
+          <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">SK</div>
+          <span class="hidden sm:inline font-bold">मालिक (Owner)</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full space-y-6">
+
+    <!-- Top Analytics Stats Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
+      
+      <div class="bg-white dark:bg-[#121e1a] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+        <span class="text-xs font-bold text-gray-500 uppercase">कुल बिक्री (Revenue)</span>
+        <h3 id="stat-total-revenue" class="text-xl sm:text-2xl font-black text-agri-700 dark:text-agri-400 mt-1">₹0</h3>
+        <span class="text-[10px] text-emerald-600 font-semibold">✓ लाइव ऑर्डर डेटा</span>
+      </div>
+
+      <div class="bg-white dark:bg-[#121e1a] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+        <span class="text-xs font-bold text-gray-500 uppercase">कुल ऑर्डर्स (Orders)</span>
+        <h3 id="stat-total-orders" class="text-xl sm:text-2xl font-black text-gray-900 dark:text-white mt-1">0</h3>
+        <span class="text-[10px] text-gray-400">Pan-India शिपमेंट</span>
+      </div>
+
+      <div class="bg-white dark:bg-[#121e1a] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+        <span class="text-xs font-bold text-gray-500 uppercase">सक्रिय उत्पाद (Products)</span>
+        <h3 id="stat-total-products" class="text-xl sm:text-2xl font-black text-blue-600 dark:text-blue-400 mt-1">0</h3>
+        <span class="text-[10px] text-blue-500 font-semibold">कैटलॉग में लिस्टेड</span>
+      </div>
+
+      <div class="bg-white dark:bg-[#121e1a] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+        <span class="text-xs font-bold text-gray-500 uppercase">मार्केटप्लेस सेलर (Sellers)</span>
+        <h3 id="stat-total-sellers" class="text-xl sm:text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">0</h3>
+        <span class="text-[10px] text-amber-500 font-semibold">मल्टी-वेंडर नेटवर्क</span>
+      </div>
+
+      <div class="bg-white dark:bg-[#121e1a] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm col-span-2 md:col-span-1">
+        <span class="text-xs font-bold text-gray-500 uppercase">5% सेलर कमीशन</span>
+        <h3 id="stat-total-commission" class="text-xl sm:text-2xl font-black text-purple-600 dark:text-purple-400 mt-1">₹0</h3>
+        <span class="text-[10px] text-purple-500 font-semibold">प्लेटफ़ॉर्म मुनाफा</span>
+      </div>
+
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-[#121e1a] rounded-t-xl px-4 pt-2">
+      <button data-admin-tab="orders" class="px-4 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-agri-600 text-agri-600 dark:text-agri-400">
+        📦 ऑर्डर्स प्रबंधन (Orders)
+      </button>
+      <button data-admin-tab="products" class="px-4 py-2.5 text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        🌿 उत्पाद सूची (Catalog)
+      </button>
+      <button data-admin-tab="sellers" class="px-4 py-2.5 text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        🏪 सेलर आवेदन (5% Commission)
+      </button>
+      <button data-admin-tab="settings" class="px-4 py-2.5 text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        ⚙️ स्टोर सेटिंग्स (Payments/GST)
+      </button>
+    </div>
+
+    <!-- ================= TAB 1: ORDERS ================= -->
+    <div id="section-orders" class="admin-section-view bg-white dark:bg-[#121e1a] rounded-b-xl border border-t-0 border-gray-200 dark:border-gray-800 shadow-sm p-4 overflow-x-auto">
+      
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="font-bold text-sm text-gray-900 dark:text-white">सभी ऑर्डर्स की सूची</h3>
+          <p class="text-xs text-gray-500">यहां से आप आर्डर का स्टेटस बदल सकते हैं, Shiprocket ट्रैकिंग देख सकते हैं और WhatsApp अलर्ट भेज सकते हैं।</p>
+        </div>
+      </div>
+
+      <table class="w-full text-left border-collapse min-w-[700px]">
+        <thead>
+          <tr class="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-200 dark:border-gray-800 text-[11px] font-bold uppercase text-gray-500 tracking-wider">
+            <th class="py-2.5 px-3">ऑर्डर ID व तारीख</th>
+            <th class="py-2.5 px-3">ग्राहक विवरण</th>
+            <th class="py-2.5 px-3">आइटम्स</th>
+            <th class="py-2.5 px-3">कुल राशि व पेमेंट</th>
+            <th class="py-2.5 px-3">स्टेटस व AWB</th>
+            <th class="py-2.5 px-3">स्टेटस अपडेट</th>
+            <th class="py-2.5 px-3">एक्शन</th>
+          </tr>
+        </thead>
+        <tbody id="admin-orders-table-body">
+          <!-- Rendered by AdminApp.renderOrders() -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ================= TAB 2: PRODUCTS ================= -->
+    <div id="section-products" class="admin-section-view bg-white dark:bg-[#121e1a] rounded-b-xl border border-t-0 border-gray-200 dark:border-gray-800 shadow-sm p-4 hidden">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+        <div>
+          <h3 class="font-bold text-sm text-gray-900 dark:text-white">उत्पाद सूची एवं स्टॉक (Inventory)</h3>
+          <p class="text-xs text-gray-500">कैटलॉग में नए उत्पाद जोड़ें, कीमतें व वजन बदलें या पुराने उत्पाद हटाएं।</p>
+        </div>
+        <button onclick="AdminApp.openAddProductModal()" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-bold shadow flex items-center gap-1.5 self-start sm:self-auto">
+          <span>+ नया उत्पाद जोड़ें (Add Product)</span>
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[700px]">
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-200 dark:border-gray-800 text-[11px] font-bold uppercase text-gray-500 tracking-wider">
+              <th class="py-2.5 px-3">फोटो</th>
+              <th class="py-2.5 px-3">नाम व श्रेणी</th>
+              <th class="py-2.5 px-3">वैरिएंट्स / साइज़</th>
+              <th class="py-2.5 px-3">कीमत (₹)</th>
+              <th class="py-2.5 px-3">शिपिंग प्रकार</th>
+              <th class="py-2.5 px-3 text-right">एक्शन</th>
+            </tr>
+          </thead>
+          <tbody id="admin-products-table-body">
+            <!-- Rendered by AdminApp.renderProducts() -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= TAB 3: SELLERS ================= -->
+    <div id="section-sellers" class="admin-section-view bg-white dark:bg-[#121e1a] rounded-b-xl border border-t-0 border-gray-200 dark:border-gray-800 shadow-sm p-4 hidden">
+      
+      <div class="mb-4">
+        <h3 class="font-bold text-sm text-gray-900 dark:text-white">मल्टी-वेंडर सेलर आवेदन एवं 5% कमीशन ट्रैकर</h3>
+        <p class="text-xs text-gray-500">
+          बाहरी नर्सरी, बीज और खाद दुकानदारों के रजिस्ट्रेशन आवेदनों को अप्रूव या सस्पेंड करें। प्रत्येक बिक्री पर 5% कमीशन स्वतः गणना होता है।
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[700px]">
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-200 dark:border-gray-800 text-[11px] font-bold uppercase text-gray-500 tracking-wider">
+              <th class="py-2.5 px-3">दुकान का नाम</th>
+              <th class="py-2.5 px-3">मालिक व मोबाइल</th>
+              <th class="py-2.5 px-3">स्थान व पिनकोड</th>
+              <th class="py-2.5 px-3">उत्पाद जो बेचेंगे</th>
+              <th class="py-2.5 px-3">स्टेटस</th>
+              <th class="py-2.5 px-3">5% कमीशन मुनाफा</th>
+              <th class="py-2.5 px-3">कार्रवाई</th>
+            </tr>
+          </thead>
+          <tbody id="admin-sellers-table-body">
+            <!-- Rendered by AdminApp.renderSellers() -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= TAB 4: SETTINGS ================= -->
+    <div id="section-settings" class="admin-section-view bg-white dark:bg-[#121e1a] rounded-b-xl border border-t-0 border-gray-200 dark:border-gray-800 shadow-sm p-6 hidden">
+      
+      <div class="max-w-2xl">
+        <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">स्टोर एवं भुगतान सेटिंग्स</h3>
+        <p class="text-xs text-gray-500 mb-6">अपने बैंक/UPI विवरण, WhatsApp हेल्पलाइन और टैक्स जानकारी को अपडेट रखें।</p>
+
+        <form onsubmit="AdminApp.handleSettingsSubmit(event)" class="space-y-4 text-xs">
+          
+          <div>
+            <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">UPI ID (जिसमें ग्राहकों से ऑनलाइन पेमेंट आएगा)</label>
+            <input type="text" id="setting-upi-id" name="upi_id" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">WhatsApp हेल्पलाइन मोबाइल नंबर</label>
+              <input type="text" id="setting-whatsapp-num" name="whatsapp_number" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+            </div>
+
+            <div>
+              <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">सपोर्ट ईमेल (Support Email)</label>
+              <input type="email" id="setting-email" name="support_email" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">मुफ्त डिलीवरी न्यूनतम कार्ट मूल्य (₹)</label>
+              <input type="number" id="setting-free-ship-val" name="free_shipping_threshold" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+            </div>
+
+            <div>
+              <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">GSTIN / पैन टैक्स स्टेटस</label>
+              <input type="text" id="setting-gst-val" name="gst_number" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <label class="flex items-center gap-2 cursor-pointer font-bold text-gray-800 dark:text-gray-200">
+              <input type="checkbox" id="setting-cod-toggle" name="cod_enabled" class="w-4 h-4 text-agri-600 rounded">
+              <span>Cash on Delivery (COD) चालू रखें</span>
+            </label>
+          </div>
+
+          <button type="submit" class="px-6 py-2.5 bg-agri-600 hover:bg-agri-700 text-white font-bold rounded-lg text-xs shadow transition mt-4">
+            सेटिंग्स सेव करें (Save Settings)
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ================= ADD PRODUCT MODAL ================= -->
+  <div id="add-product-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#121e1a] rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-800 shadow-2xl p-6">
+      
+      <div class="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-800">
+        <h3 class="text-base font-bold text-gray-900 dark:text-white">+ नया उत्पाद जोड़ें (Add New Product)</h3>
+        <button onclick="AdminApp.closeAddProductModal()" class="text-gray-400 hover:text-gray-700 font-bold text-lg">✕</button>
+      </div>
+
+      <form onsubmit="AdminApp.handleAddProductSubmit(event)" class="mt-4 space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">उत्पाद का नाम *</label>
+          <input type="text" name="prod_name" required placeholder="जैसे: जैविक पोटाश खाद या कलमी चीकू का पौधा" class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">श्रेणी (Category) *</label>
+            <select name="prod_category" required class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+              <option value="bamboo">🎋 बांस के पौधे (Bamboo Varieties)</option>
+              <option value="fertilizers">केंचुआ खाद एवं पोषण</option>
+              <option value="neem">नीम एवं जैविक कीटनाशक</option>
+              <option value="plants">लाइव नर्सरी पौधे</option>
+              <option value="mulching">मल्चिंग शीट व शेड नेट</option>
+              <option value="seeds">उन्नत बीज एवं किट</option>
+              <option value="tools">स्प्रेयर व टूल्स</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">वजन / पैक साइज़ *</label>
+            <input type="text" name="prod_weight" required placeholder="उदा. 5 Kg या 1 Litre या 1 Plant" class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">बिक्री मूल्य (Selling Price ₹) *</label>
+            <input type="number" name="prod_price" required placeholder="199" class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">MRP (कटने वाली कीमत ₹)</label>
+            <input type="number" name="prod_mrp" placeholder="299" class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">उत्पाद की फोटो (Photo Upload / URL) *</label>
+          <div class="space-y-2">
+            <!-- Direct Device File Upload -->
+            <div class="flex items-center gap-3">
+              <label for="prod-file-picker" class="cursor-pointer inline-flex items-center gap-2 px-3.5 py-2 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300 rounded-lg text-xs font-bold hover:bg-emerald-100 transition shadow-sm">
+                <span>📁 कंप्यूटर या मोबाइल से फोटो चुनें</span>
+              </label>
+              <input type="file" id="prod-file-picker" accept="image/*" class="hidden" onchange="AdminApp.handleFileSelect(event)">
+              <span id="prod-file-name" class="text-[11px] text-gray-400 truncate max-w-[200px]">कोई फाइल नहीं चुनी गई</span>
+            </div>
+
+            <!-- Alternative URL input -->
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] text-gray-400">या लिंक डालें:</span>
+              <input type="url" id="prod-image-url" name="prod_image" placeholder="https://..." class="flex-1 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-xs text-gray-900 dark:text-white outline-none" oninput="AdminApp.handleUrlInput(this.value)">
+            </div>
+
+            <!-- Live Image Preview Box -->
+            <div id="prod-preview-container" class="hidden items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <img id="prod-preview-img" src="" class="w-14 h-14 object-cover rounded-lg border border-gray-300 dark:border-gray-600">
+              <div class="flex-1">
+                <span class="text-xs font-bold text-emerald-600 block">✓ फोटो तैयार है</span>
+                <span class="text-[10px] text-gray-400">यह फोटो ग्राहक को प्रोडक्ट कार्ड पर दिखेगी</span>
+              </div>
+              <button type="button" onclick="AdminApp.clearImagePreview()" class="text-xs text-red-500 hover:underline font-semibold">हटाएं</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">संक्षिप्त विवरण (Short Description) *</label>
+          <textarea name="prod_short_desc" rows="2" required placeholder="उत्पाद की मुख्य विशेषताएं और उपयोग विधि..." class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white outline-none"></textarea>
+        </div>
+
+        <div class="pt-1">
+          <label class="flex items-center gap-2 cursor-pointer font-bold text-gray-700 dark:text-gray-300">
+            <input type="checkbox" name="prod_is_live_plant" class="w-4 h-4 text-agri-600 rounded">
+            <span>यह एक जीवित पौधा है (सुरक्षित फास्ट एक्सप्रेस शिपिंग आवश्यक)</span>
+          </label>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-agri-600 hover:bg-agri-700 text-white font-bold rounded-lg text-sm shadow transition mt-3">
+          उत्पाद लाइव करें (Publish Product)
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Hidden Container for Printable Invoice -->
+  <div id="printable-invoice"></div>
+
+  <!-- Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/store-storage.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>
